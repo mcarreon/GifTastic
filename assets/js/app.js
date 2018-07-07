@@ -124,10 +124,10 @@ $(document).on('click', ".result-buttons", function () {
 
     var searchItem = $('#search-entry').val().trim(); 
     var returnedItems = [];
-    pastResults.push(searchItem);
+    topics.push(searchItem);
+    appCtrl.fillButtons();
     
-    if (searchItem != '') {
-          
+    if (searchItem != '') {          
         $.ajax({
             url: appCtrl.buildUrl(searchItem),
             method: "GET"
