@@ -49,8 +49,8 @@ var appCtrl = {
             var imgCard = $('<div>');
             var textPack = $('<div>');
             
-            var text = $('<div>');
-            text.text(`Rating: ${returnedItems[i].rating}`);
+            var textRating = $('<div>');
+            textRating.text(`Rating: ${returnedItems[i].rating}`);
             var textName = $('<div>');
             textName.text(returnedItems[i].title);
             var textDate = $('<div>');
@@ -59,8 +59,7 @@ var appCtrl = {
                 var textUser = $('<div>');
                 textUser.text(`Uploaded By: ${returnedItems[i].username}`);
             }
-            
-                 
+                  
             var img = $('<img>');
             img.attr({
                 'class': 'gif-image',
@@ -70,7 +69,7 @@ var appCtrl = {
                 'src': returnedItems[i].images.original_still.url
             });
             
-            textPack.append(text);
+            textPack.append(textRating);
             textPack.append(textName);
             textPack.append(textDate);
             textPack.append(textUser);
