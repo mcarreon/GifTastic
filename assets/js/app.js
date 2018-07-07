@@ -41,7 +41,44 @@ var appCtrl = {
         $buttonArea.prepend(buttonPack);
     },
     fillResults: function (array) {
-        var resultsList = array;
+        var returnedItems = array;
+
+        var imgPack = $('<div>');
+
+        for (var i = 0; i < returnedItems.length; i++) {
+            var imgCard = $('<div>');
+            var textPack = $('<div>');
+            
+            var text = $('<div>');
+            text.text(`Rating: ${returnedItems[i].rating}`);
+            var textName = $('<div>');
+            textName.text(returnedItems[i].title);
+            var textDate = $('<div>');
+            textDate.text(`Date Uploaded: ${returnedItems[i].import_datetime}`);
+            if (returnedItems[i].username != "") {
+                var textUser = $('<div>');
+                textUser.text(`Uploaded By: ${returnedItems[i].username}`);
+            }
+            
+                 
+            var img = $('<img>');
+            img.attr({
+                'class': 'gif-image',
+                'data-animate': returnedItems[i].images.original.url,
+                'data-still': returnedItems[i].images.original_still.url,
+                'data-state': 'still',
+                'src': returnedItems[i].images.original_still.url
+            });
+            
+            textPack.append(text);
+            textPack.append(textName);
+            textPack.append(textDate);
+            textPack.append(textUser);
+            imgCard.append(img);
+            imgCard.append(textPack);
+            imgPack.append(imgCard);
+        }    
+        $resultsArea.append(imgPack);
     },
     fillPast: function () {  
     },
@@ -75,50 +112,16 @@ $(document).on('click', ".result-buttons", function () {
         returnedItems = response.data;
         console.log(response);
         console.log(returnedItems);
-        var imgPack = $('<div>');
-
-        for (var i = 0; i < returnedItems.length; i++) {
-            var imgCard = $('<div>');
-            
-            var text = $('<div>');
-            text.text(`Rating: ${returnedItems[i].rating}`);
-        
-            var img = $('<img>');
-            img.attr({
-                'class': 'gif-image',
-                'data-animate': returnedItems[i].images.original.url,
-                'data-still': returnedItems[i].images.original_still.url,
-                'data-state': 'still',
-                'src': returnedItems[i].images.original_still.url
-            });
-
-            imgCard.append(text);
-            imgCard.append(img);
-            imgPack.append(imgCard);
-        }
-        
-        
-        $resultsArea.append(imgPack);
+        appCtrl.fillResults(returnedItems);
     });
 
 });
 
-$(document).on("click", ".gif-image", function() {
-    
-    var state = $(this).attr("data-state");
-
-    if (state === "still") {
-      $(this).attr("src", $(this).attr("data-animate"));
-      $(this).attr("data-state", "animate");
-    } else {
-      $(this).attr("src", $(this).attr("data-still"));
-      $(this).attr("data-state", "still");
-    }
-  });
-
-$('#search-button').on('click', function (event) {
+  $('#search-button').on('click', function (event) {
     //doesn't work?!
     event.preventDefault();
+
+    appCtrl.clearResults();
 
     var searchItem = $('#search-entry').val().trim(); 
     var returnedItems = [];
@@ -133,14 +136,27 @@ $('#search-button').on('click', function (event) {
             returnedItems = response.data;
             console.log(response);
             console.log(returnedItems);
+            appCtrl.fillResults(returnedItems);
           });
     }
 
     $('#search-entry').val('');
 });
 
+$(document).on("click", ".gif-image", function() {
+    
+    var state = $(this).attr("data-state");
 
-//ajax snippet
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
+});
+
+
 
  
 
