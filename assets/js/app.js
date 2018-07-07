@@ -22,6 +22,8 @@ var topics = [
     "cars"
 ];
 
+var favoritesList = [];
+
 var pastResults = [];
 
 
@@ -30,6 +32,14 @@ var appCtrl = {
         $buttonArea.empty();
         var buttonPack = $('<div>');
         buttonPack.attr('class', 'button-pack');
+
+        var favorites = $('<button>');
+        favorites.attr({
+            'class': 'favorite-buttons',
+            'search-data': 'favorites',
+        });
+        favorites.text('Favorites');
+        buttonPack.append(favorites);
 
         for (var i = 0; i < topics.length; i++) {
             var button = $('<button>');
@@ -47,17 +57,23 @@ var appCtrl = {
 
         for (var i = 0; i < returnedItems.length; i++) {
             var imgCard = $('<div>');
+            imgCard.attr('class', `gif${i}`);
             var textPack = $('<div>');
             
             var textRating = $('<div>');
             textRating.text(`Rating: ${returnedItems[i].rating}`);
+            textRating.attr('class', 'rating');
             var textName = $('<div>');
             textName.text(returnedItems[i].title);
+            textName.attr('class', 'name');
             var textDate = $('<div>');
             textDate.text(`Date Uploaded: ${returnedItems[i].import_datetime}`);
+            textDate.attr('class', 'date');
+            
             if (returnedItems[i].username != "") {
                 var textUser = $('<div>');
                 textUser.text(`Uploaded By: ${returnedItems[i].username}`);
+                textUser.attr('class', 'username');
             }
                   
             var img = $('<img>');
@@ -68,13 +84,23 @@ var appCtrl = {
                 'data-state': 'still',
                 'src': returnedItems[i].images.original_still.url
             });
+
+            var fav = $('<button>');
+            fav.attr({
+                'value': `${i}`,
+                'class': 'save-button'
+        });
+            fav.text('Favorite!');
             
             textPack.append(textRating);
             textPack.append(textName);
             textPack.append(textDate);
             textPack.append(textUser);
+
             imgCard.append(img);
             imgCard.append(textPack);
+            imgCard.append(fav);
+
             imgPack.append(imgCard);
         }    
         $resultsArea.append(imgPack);
@@ -116,7 +142,7 @@ $(document).on('click', ".result-buttons", function () {
 
 });
 
-  $('#search-button').on('click', function (event) {
+$('#search-button').on('click', function (event) {
     //doesn't work?!
     event.preventDefault();
 
@@ -141,6 +167,14 @@ $(document).on('click', ".result-buttons", function () {
 
     $('#search-entry').val('');
 });
+
+$(document).on('click', '.favorite-buttons', function () {
+
+})
+
+$(document).on('click', '.save-button', function () {
+    
+})
 
 $(document).on("click", ".gif-image", function() {
     
