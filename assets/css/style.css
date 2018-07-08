@@ -15,4 +15,17 @@ label {
     margin: 5px;
 }
 
+.save-favorite-button {
+    font-size: 1.5em;
+    margin-right: 2px;
+    margin-top: 4px;
+}
 
+.save-favorite-button:hover {
+    color: gold;
+    transition-duration: 1s;
+}
+
+.clear-fav {
+    color: rgba(238, 0, 48, 0.897);
+}
