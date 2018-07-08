@@ -35,7 +35,7 @@ var appCtrl = {
 
         var favorites = $('<button>');
         favorites.attr({
-            'class': 'favorite-buttons',
+            'class': 'favorite-buttons btn btn-success btn-sm',
             'search-data': 'favorites',
         });
         favorites.text('Favorites');
@@ -43,7 +43,7 @@ var appCtrl = {
 
         for (var i = 0; i < topics.length; i++) {
             var button = $('<button>');
-            button.attr('class', 'result-buttons');
+            button.attr('class', 'result-buttons btn btn-outline-primary btn-sm');
             button.attr('search-data', `${topics[i]}`);
             button.text(`${topics[i]}`);    
             buttonPack.append(button);
@@ -54,31 +54,33 @@ var appCtrl = {
         var returnedItems = array;
 
         var imgPack = $('<div>');
+        imgPack.attr('class', 'card-columns mt-2');
 
         for (var i = 0; i < returnedItems.length; i++) {
             var imgCard = $('<div>');
-            imgCard.attr('class', `gif${i}`);
+            imgCard.attr('class', `gif${i} gif-text card bg-dark`);
             var textPack = $('<div>');
+            textPack.attr('class', 'card-body p-1')
             
             var textRating = $('<div>');
             textRating.text(`Rating: ${returnedItems[i].rating}`);
-            textRating.attr('class', 'rating');
+            textRating.attr('class', 'rating card-text');
             var textName = $('<div>');
             textName.text(returnedItems[i].title);
-            textName.attr('class', 'name');
+            textName.attr('class', 'name card-text');
             var textDate = $('<div>');
             textDate.text(`Date Uploaded: ${returnedItems[i].import_datetime}`);
-            textDate.attr('class', 'date');
+            textDate.attr('class', 'date card-text');
             
             if (returnedItems[i].username != "") {
                 var textUser = $('<div>');
                 textUser.text(`Uploaded By: ${returnedItems[i].username}`);
-                textUser.attr('class', 'username');
+                textUser.attr('class', 'username card-text');
             }
                   
             var img = $('<img>');
             img.attr({
-                'class': 'gif-image',
+                'class': 'gif-image card-img-top',
                 'data-animate': returnedItems[i].images.original.url,
                 'data-still': returnedItems[i].images.original_still.url,
                 'data-state': 'still',
@@ -88,7 +90,7 @@ var appCtrl = {
             var fav = $('<button>');
             fav.attr({
                 'value': `${i}`,
-                'class': 'save-button'
+                'class': 'save-button btn btn-block text-white card-footer'
         });
             fav.text('Favorite!');
             
@@ -146,14 +148,17 @@ $('#search-button').on('click', function (event) {
     //doesn't work?!
     event.preventDefault();
 
-    appCtrl.clearResults();
+    
 
     var searchItem = $('#search-entry').val().trim(); 
     var returnedItems = [];
-    topics.push(searchItem);
-    appCtrl.fillButtons();
     
-    if (searchItem != '') {          
+    
+    if (searchItem != '') {     
+        appCtrl.clearResults();
+        topics.push(searchItem);
+        appCtrl.fillButtons();     
+
         $.ajax({
             url: appCtrl.buildUrl(searchItem),
             method: "GET"

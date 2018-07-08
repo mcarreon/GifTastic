@@ -1,4 +1,18 @@
-.gif-image{
-    max-width: 330px;
-    max-height: 300px;
+.gif-text {
+    font-size: 12px;
+    color: rgba(245, 245, 245, 0.836);
 }
+
+body {
+    background-image: url(../images/connectwork.png);
+}
+
+label {
+    color: rgba(245, 245, 245, 0.836);
+}
+
+.favorite-buttons, .result-buttons {
+    margin: 5px;
+}
+
+
