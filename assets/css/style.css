@@ -3,8 +3,13 @@
     color: rgba(245, 245, 245, 0.836);
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     background-image: url(../images/connectwork.png);
+    height: 100vh;
 }
 
 label {
@@ -28,4 +33,24 @@ label {
 
 .clear-fav {
     color: rgba(238, 0, 48, 0.897);
+}
+
+footer {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    height: 25px;
+
+}
+
+.github {
+    color: rgba(245, 245, 245, 0.459);
+
+    
+
+}
+
+.body {
+    min-height: 100%;
+    position: relative;
 }
